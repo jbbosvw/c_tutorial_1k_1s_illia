@@ -1,4 +1,4 @@
-project("random")
+project("random-while")
 
 include_directories(include)
 

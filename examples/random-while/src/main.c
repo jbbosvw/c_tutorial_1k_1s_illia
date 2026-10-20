@@ -10,13 +10,13 @@ int main()
 
     int i = 0;
 
-    do
+    while (i < series_count)
     {
         srand(time(NULL));
 
         int count = 0, succ_count = 0, previous = -1;
 
-        while (count++ < max_count)
+        while (count < max_count)
         {
             int dice = rand() % 6 + 1;
 
@@ -26,14 +26,16 @@ int main()
             }
 
             previous = dice;
+
+            ++count;
         }
 
         double result = 100.0 * succ_count / max_count;
 
         probability += result;
-    }
-    while (i++ < series_count);
 
+        ++i;
+    }
 
     probability /= series_count;
 
