@@ -1,0 +1,1 @@
+add_subdirectory("інд.завд.")
