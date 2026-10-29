@@ -1,4 +1,4 @@
-project("інд.завд.1")
+project("zavd.1")
 
 include_directories(include)
 
