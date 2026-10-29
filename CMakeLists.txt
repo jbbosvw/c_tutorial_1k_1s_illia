@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.10)
 
-project ("c-tutorial-1k-1s")
+project ("c-tutorial-1k-1s_illia")
 
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -23,4 +23,5 @@ if(MSVC)
 endif()
 
 add_subdirectory("examples")
+add_subdirectory("rrr/qqq")
 add_subdirectory("lab01")
