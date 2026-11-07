@@ -18,32 +18,34 @@
 #define pi 3.14159265358979323846
 int main()
 {
-	double x = 1.0, S = 0.0;
-	int N = 5;
+	double a = pi / 5, b = pi, eps = 0.0001;
+	int N = 5, k = 10;
+	double h = (b - a) / (k - 1);
 
-	for (int n = 1; n <= N; n++)
+	printf("%8s %10s %10s %10s %7s\n", "x", "exact", "S(N=5)", "S(eps)", "terms");
+
+	for (int i = 0; i < k; i++)
 	{
-		S += cos((2.0 * n - 1.0) * x) / ((2.0 * n - 1.0) * (2.0 * n - 1.0));
+		double x =  a + i * h;
+		double exact = pi * pi / 8 - pi * fabs(x) / 4;
+
+		double S = 0.0;
+		for (int n = 1; n <= N; n++)
+		{
+			S += cos((2.0 * n - 1.0) * x) / ((2.0 * n - 1.0) * (2.0 * n - 1.0));
+
+		}
+
+		double S2 = 0.0;
+		int m = 1;
+		while (1.0 / ((2.0 * m - 1.0) * (2.0 * m - 1.0)) >= eps)
+		{
+			S2 += cos((2.0 * m - 1.0) * x) / ((2.0 * m - 1.0) * (2.0 * m - 1.0));
+			m++;
+		}
+
+		printf("%8.4f %10.6f %10.6f %10.6f %7d\n", x, exact, S, S2, m - 1);
 	}
-	double exact = pi * pi / 8 - pi * fabs(x) / 4;
-	printf("S = %f\n", S);
-	printf("f = %f\n", exact);
-	printf("diff = %f\n", fabs(S - exact));
-
-	//eps = 0.0001
-	//1/(2n-1)^2 < eps => 2n-1 > 100 => n >= 51
-	//N = 51
-
-	double eps = 0.0001, S2 = 0.0;
-	int m = 1;
-	while (1.0 / ((2.0 * m - 1.0) * (2.0 * m - 1.0)) >= eps)
-	{
-		S2 += cos((2.0 * m - 1.0) * x) / ((2.0 * m - 1.0) * (2.0 * m - 1.0));
-		m++;
-	}
-
-	printf("S(eps) = %f, terms = %d\n", S2, m - 1);
-	printf("diff(eps) = %f\n", fabs(S2 - exact));
 
 
 	return 0;
