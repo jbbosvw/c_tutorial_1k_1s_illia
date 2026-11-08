@@ -13,49 +13,43 @@
 //////S = 0, 5403 - 0, 1100 + 0, 0113 + 0, 0154 - 0, 0112 = 0,4458
 //////f(1) = 9, 8696 / 8 - 3, 1416 * |1| / 4 = 1, 2337 - 0, 7854 = 0,4483
 //////|S - f| = |0,4458 - 0,4483| = 0,0025
-#include <stdio.h>
-#include <math.h>
-#define pi 3.14159265358979323846
-int main()
-{
-	double a = pi / 5, b = pi, eps = 0.0001;
-	int N = 5, k = 10;
-	double h = (b - a) / (k - 1);
-
-	printf("%8s %10s %10s %10s %7s\n", "x", "exact", "S(N=5)", "S(eps)", "terms");
-
-	for (int i = 0; i < k; i++)
-	{
-		double x =  a + i * h;
-		double exact = pi * pi / 8 - pi * fabs(x) / 4;
-
-		double S = 0.0;
-		for (int n = 1; n <= N; n++)
-		{
-			S += cos((2.0 * n - 1.0) * x) / ((2.0 * n - 1.0) * (2.0 * n - 1.0));
-
-		}
-
-		double S2 = 0.0;
-		int m = 1;
-		while (1.0 / ((2.0 * m - 1.0) * (2.0 * m - 1.0)) >= eps)
-		{
-			S2 += cos((2.0 * m - 1.0) * x) / ((2.0 * m - 1.0) * (2.0 * m - 1.0));
-			m++;
-		}
-
-		printf("%8.4f %10.6f %10.6f %10.6f %7d\n", x, exact, S, S2, m - 1);
-	}
-
-
-	return 0;
-}
-
+//#include <stdio.h>
+//#include <math.h>
+//#define pi 3.14159265358979323846
+//int main()
+//{
+//	double a = pi / 5, b = pi, eps = 0.0001;
+//	int N = 5, k = 10;
+//	double h = (b - a) / (k - 1);
+//
+//	printf("%8s %10s %10s %10s %7s\n", "x", "exact", "S(N=5)", "S(eps)", "terms");
+//
+//	for (int i = 0; i < k; i++)
+//	{
+//		double x =  a + i * h;
+//		double exact = pi * pi / 8 - pi * fabs(x) / 4;
+//
+//		double S = 0.0;
+//		for (int n = 1; n <= N; n++)
+//		{
+//			S += cos((2.0 * n - 1.0) * x) / ((2.0 * n - 1.0) * (2.0 * n - 1.0));
+//
+//		}
+//
+//		double S2 = 0.0;
+//		int m = 1;
+//		while (1.0 / ((2.0 * m - 1.0) * (2.0 * m - 1.0)) >= eps)
+//		{
+//			S2 += cos((2.0 * m - 1.0) * x) / ((2.0 * m - 1.0) * (2.0 * m - 1.0));
+//			m++;
+//		}
+//
+//		printf("%8.4f %10.6f %10.6f %10.6f %7d\n", x, exact, S, S2, m - 1);
+//	}
 //
 //
-//
-///*
-//* Табуляція. 16 варіант
+//	return 0;
+//}
 //* y = -3x^2 + x - 1, x<1
 //* y = x*sqrt(x) - 1, 1 <= x<4
 //* y = |2-x|, x>=4
@@ -113,38 +107,38 @@ int main()
 * hy = 0.25, y in {1,5}
 * знайти max i min 
 */
-//#include <stdio.h>
-//#include <math.h>
-//
-//int main()
-//{
-//	double xa = 1, xb = 4, hx = 0.2;
-//	double ya = 1, yb = 5, hy = 0.25;
-//	int nx = (int)round((xb - xa) / hx);
-//	int ny = (int)round((yb - ya) / hy);
-//	double zmax = -1e9, zmin = 1e9;
-//
-//	printf("Y\\X");
-//	for (int i = 0; i <= nx; i++)
-//		printf("%8.2f", xa + i * hx);
-//	printf("\n");
-//
-//	for (int j = 0; j <= ny; j++)
-//	{
-//		double y = ya + j * hy;
-//		printf("%.2f", y);
-//		for (int i = 0; i <= nx; i++)
-//		{
-//			double x = xa + i * hx;
-//			double z = pow(x, y) + pow(y, x - 1);
-//			printf("\t%8.2f", z);
-//			if (z > zmax) zmax = z;
-//			if (z < zmin) zmin = z;
-//		}
-//		printf("\n");
-//	}
-//
-//	printf("max z = %.4f\n", zmax);
-//	printf("min z = %.4f\n", zmin);
-//	return 0;
-//}
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+	double xa = 1, xb = 4, hx = 0.2;
+	double ya = 1, yb = 5, hy = 0.25;
+	int nx = (int)round((xb - xa) / hx);
+	int ny = (int)round((yb - ya) / hy);
+	double zmax = -1e9, zmin = 1e9;
+
+	printf("Y\\X");
+	for (int i = 0; i <= nx; i++)
+		printf("%8.2f", xa + i * hx);
+	printf("\n");
+
+	for (int j = 0; j <= ny; j++)
+	{
+		double y = ya + j * hy;
+		printf("%.2f", y);
+		for (int i = 0; i <= nx; i++)
+		{
+			double x = xa + i * hx;
+			double z = pow(x, y) + pow(y, x - 1);
+			printf("\t%8.2f", z);
+			if (z > zmax) zmax = z;
+			if (z < zmin) zmin = z;
+		}
+		printf("\n");
+	}
+
+	printf("max z = %.4f\n", zmax);
+	printf("min z = %.4f\n", zmin);
+	return 0;
+}
